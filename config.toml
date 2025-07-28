@@ -1,0 +1,19 @@
+baseURL = "https://github.com/bdwalker238/tecnotes"
+languageCode = "en-us"
+title = "Brian Walker"
+theme = "hugo-theme-cleanwhite-rsy"
+paginate = 5000
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  author = "Brian Walker"
+  description = "A blog about all things technical."
+
+  [[params.social]]
+    icon = "github"
+    name = "GitHub"
+    url = "https://github.com/bdwalker238"
