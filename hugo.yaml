@@ -3,6 +3,16 @@ languageCode: en-uk
 title: Brian Walker's tecnotes
 theme: PaperMod
 pagination.pagerSize: 6
+menu:
+  main: 
+    - identifier: Home 
+      name: Home 
+      url: /about 
+      weight: 100 
+    - identifier: Posts 
+      name: Posts 
+      url: /posts 
+      weight: 200 
 params:
   defaultTheme: dark
   homeInfoParams:
