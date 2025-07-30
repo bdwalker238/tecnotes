@@ -11,5 +11,5 @@ params:
   socialIcons:
     - name: email
       url: 'mailto:bdwalk@gmx.com'
-    -name: LinkedLn
-    url: 'https://www.linkedin.com/in/brian-d-walker-354b671/'
+    - name: LinkedLn
+      url: 'https://www.linkedin.com/in/brian-d-walker-354b671/'
