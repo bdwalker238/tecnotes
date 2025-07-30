@@ -1,13 +1,14 @@
 baseURL: https://bdwalk.onrender.com/
-languageCode: en-us
+languageCode: en-uk
 title: Brian Walker's tecnotes
 theme: PaperMod
+pagination.pagerSize: 6
 params:
   defaultTheme: dark
   homeInfoParams:
     Title: "Welcome \U0001F44B"
     Content: >-
-      Welcome to my technotes website.      
+      Welcome to my technotes website, with articles on Azure, Db2, Linux, Mongodb and Postgres.      
   socialIcons:
     - name: email
       url: 'mailto:bdwalk@gmx.com'
