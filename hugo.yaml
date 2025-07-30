@@ -7,7 +7,7 @@ menu:
   main: 
     - identifier: Home 
       name: Home 
-      url: /about 
+      url: /
       weight: 100 
     - identifier: Posts 
       name: Posts 
