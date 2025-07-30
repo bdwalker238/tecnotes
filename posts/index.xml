@@ -1,1 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/posts/</link><description>Recent content in Posts on Brian Walker's tecnotes</description><generator>Hugo -- 0.148.2</generator><language>en-uk</language><lastBuildDate>Wed, 30 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My first blog post</title><link>https://bdwalk.onrender.com/posts/3072025_post1/</link><pubDate>Wed, 30 Jul 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/3072025_post1/</guid><description>&lt;p>Hi first blog!&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/posts/</link><description>Recent content in Posts on Brian Walker's tecnotes</description><generator>Hugo -- 0.148.2</generator><language>en-uk</language><lastBuildDate>Wed, 30 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My first blog post</title><link>https://bdwalk.onrender.com/posts/3072025_post1/</link><pubDate>Wed, 30 Jul 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/3072025_post1/</guid><description>&lt;p>Hi first blog!&lt;/p></description></item><item><title/><link>https://bdwalk.onrender.com/posts/3072025_post2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/3072025_post2/</guid><description>&lt;h1 id="markdown">Markdown&lt;/h1>
+&lt;p>I am a paragraph in markdown with line
+wrapping so fit in this width.
+I am a continuation of the first paragraph
+as there is no empty line before me.&lt;/p>
+&lt;p>I am in the second paragraph.&lt;/p>
+&lt;p>I am the third one. Even though there are
+two line breaks before me, this does not
+create any newline characters. After me there
+are two spaces before the newline character.&lt;br>
+I have a line break before me. Even though
+I am not a new paragraph, I do start on a
+new line due to the manual line break via
+spaces before the newline character.&lt;/p></description></item></channel></rss>
