@@ -1,3 +1,13 @@
-baseURL: https://example.org/
+baseURL: https://bdwalk.onrender.com/
 languageCode: en-us
-title: My New Hugo Site
+title: Brian Walker's tecnotes
+theme: PaperMod
+params:
+  defaultTheme: dark
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: >-
+      Welcome to my technotes website.      
+  socialIcons:
+    - name: email
+      url: 'mailto:bdwalk@gmx.com'
