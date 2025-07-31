@@ -1,0 +1,67 @@
+---
+title: "Postgres pg_service file"
+date: 2025-07-31
+draft: false
+ShowToc: true
+---
+
+The importance of the Postgres pg_service file (pg_service.conf) ! The  pg_service file allows
+libpq connection parameters to be associated with a single service name as part of command argument or
+when setting PGSERVICE environment variable.  For example,
+
+Command Line examples
+---------------------
+
+pg_basebackup --pgdata=$PGDATA --dbname=service=basebackup --verbose --progress --checkpoint=fast --write-recovery-conf --wal-method=stream --waldir=/psql/pglog/13 --create-slot --slot=pgstandby2
+
+su - postgres
+psql service=myservice
+postgres@postgres:49010=#
+
+Setting environment variable  PGSERVICE 
+---------------------------------------
+
+pg() { PGSERVICE=$1 psql
+
+}
+
+The advantages of using pg_service.conf are as follows -
+
+*  You could reuse the same service name in multiple clusters, projects or applications, avoiding the need to duplicate connection details .
+*  You could create unique service names if you have many Postgres instances in your organisation/Company as way of way distinctively identifying postgres instances  for Audit Purposes . This point is valid if you name your postgres clustername as same as a service name! 
+*  You only need to update libpq connection parameters in one place.   
+
+How Do I use the pg_service.conf ?   
+
+The default **system-wide location of pg_service.conf is identified by 'pg_config --sysconfdir', or environment variable  - PGSERVICEFILE . Once
+you have  identified where your  pg_service.conf exists -
+
+vi  pg_service.conf
+[name]
+host=
+port=
+user=
+passfile=
+[name]							
+host=
+port=
+user=
+passfile=
+
+For example,  
+
+[myservice]
+host=localhost
+port=49011
+user=postgres
+passfile=/psql/home/.pgpass
+[backup]
+host=remotehost
+port=49011
+user=backupuser
+passfile=/psql/home/.pgpass
+
+
+That's It ..  Any Best Practices ,  
+
+In my experience , I would set one service name same name as my cluster name.
