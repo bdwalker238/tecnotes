@@ -59,12 +59,12 @@ host=localhost
 {{< line_break >}}
 port=49011 
 {{< line_break >}}
-user=postgres 
+user=postgres  
 passfile=/psql/home/.pgpass
 {{< line_break >}}  
 [pgservice]
 {{< line_break >}}
-host=remotehost 
+host=remotehost  
 port=49011  
 user=postgres  
 passfile=/psql/home/.pgpass
