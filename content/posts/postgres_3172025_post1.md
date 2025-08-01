@@ -33,7 +33,7 @@ The advantages of using pg_service.conf are as follows -
 ---
 
 *  You could reuse the same service name in multiple clusters, projects or applications, avoiding the need to duplicate connection details . This could be useful for Automation.
-*  You could create unique service name in conjunction with a unique postgres cluster name as part of an organisation policy. This would allow you to unique identify postgres instances in your organisation/Company for Audit/Configuration Management Purposes .  
+*  You could create unique service name in conjunction with a unique postgres cluster name as part of an organisation policy. This would allow you to unique identify postgres instances in your organisation/Company for Audit/Configuration Management Purposes.  
 *  You only need to update libpq connection parameters in one place.   
 
 How do I set a service entry in pg_service.conf ?   
