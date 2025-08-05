@@ -73,4 +73,4 @@ passfile=/psql/home/.pgpass
 That's It ..  Any Best Practices  ? 
 ---
 
-In my experience , I would set one of service name same name as my Postgres cluster name, and for automation have duplicate service name for 'dba' wrapper scripts[ pg_repack] to connect too.
+In my experience , I would set one of service name same name as my Postgres cluster name, and for automation have service name enter per database for automation purposes.
