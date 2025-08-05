@@ -9,7 +9,7 @@ ShowToc: true
 What is the pg_service file ?
 -----------------------------
 
-This article highlights the importance of the Postgres pg_service file (pg_service.conf) ! The  pg_service file allows libpq connection parameters to be associated with a single service name as part of command argument or when setting PGSERVICE environment variable.  In the Next section , are some examples with s 'service' be used.
+This article highlights the importance of the Postgres pg_service file (pg_service.conf). The  pg_service file allows libpq connection parameters to be associated with a single service name as part of command argument or when setting PGSERVICE environment variable.  In the Next section , are some examples with s 'service' be used.
 
 Commmand Line examples
 ----------------------
@@ -32,7 +32,7 @@ pg() { PGSERVICE=$1 psql
 The advantages of using pg_service.conf are as follows -
 ---
 
-*  You could reuse the same service name in multiple clusters, projects or applications, avoiding the need to duplicate connection details . This could be useful for Automation.
+*  You could have a service name for each database within a Postgres Cluster.  This could be useful for automation.
 *  You could create unique service name in conjunction with a unique postgres cluster name as part of an organisation policy. This would allow you to unique identify postgres instances in your organisation/Company for Audit/Configuration Management Purposes.  
 *  You only need to update libpq connection parameters in one place.   
 
