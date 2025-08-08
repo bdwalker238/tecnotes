@@ -102,6 +102,4 @@ Why Use Azure Storage Accounts
 
 *  Azure Storage accounts are ideal for backup data when hosting Postgres in Azure, as backup data is backed up directly
    to different infrastructure, and can be geo-replicated.
-*  Azure Storage accounts only charge you for , Volume of data stored per month + Quantity and types of operations performed, along with any data transfer costs + Data redundancy option selected.  Whereas, using azure managed disk for backups + archives charge - disk type, disk size ( Not volume of backup data), LRS/ZRS,  and typical to meet backup protection requirements would need to be disk snapshoted or backuped up by  Recovery Services vault. So directly managed disks you pay twice .
-
-
+*  Azure Storage accounts only charge you for , Volume of data stored per month + Quantity and types of operations performed, along with any data transfer costs + Data redundancy option selected.  Whereas, using azure managed disk for backups + archives charge - disk type, disk size ( Not volume of backup data), LRS/ZRS,  and typical to meet backup protection requirements would need to be disk snapshoted or backuped up by  Recovery Services vault. So directly managed disks you pay twice.
