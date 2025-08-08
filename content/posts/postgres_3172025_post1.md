@@ -2,7 +2,7 @@
 title: "Postgres pg_service file"
 date: 2025-07-31
 draft: false
-weight: 10
+weight: 11
 ShowToc: true
 ---
 

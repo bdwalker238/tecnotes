@@ -20,17 +20,24 @@ First you need to setup a Azure Storage Account, either using Terraform, ARM Tem
 
 Mandatory Values
 
-Resouce Group - Name of your resource group. 
+Resouce Group - Name of your resource group.
+{{< line_break >}}
 Storage Account Name - Name of storage account. 
+{{< line_break >}}
 Region -  Your deployment Region. 
+{{< line_break >}}
 Primary Service -  Azure Blob Storage or Azure Data Lake Storage Gen 2.
+{{< line_break >}}
 Enable Storage account key access.
 
 Optional
 
 Performance - Standard or Premium. 
-Redundancy - Align your organisation RPO and RTO requiements.  
-Networking - Align to your organisation network policy , probably a private end point.  
+{{< line_break >}}
+Redundancy - Align your organisation RPO and RTO requiements.
+{{< line_break >}}
+Networking - Align to your organisation network policy , probably a private end point.
+{{< line_break >}}
 Access tier -  Hot/Cool/Cold.  Hot is a practical choice if you conistently restoring a production backup to uat once a week!
 
 Tip -  I would keep your storage account in a different azure resource group to your postgres VM's,
