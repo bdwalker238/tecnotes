@@ -1,6 +1,6 @@
 ---
 title: "Pgbackrest with Azure Storage Account"
-date: 2025-07-31
+date: 2025-08-09
 draft: false
 weight: 10
 ShowToc: true
@@ -20,17 +20,17 @@ First you need to setup a Azure Storage Account, either using Terraform, ARM Tem
 
 Mandatory Values
 
-Resouce Group - Name of your resource group .  
-Storage Account Name - Name of storage account.
-Region -  Your deployment Region.
+Resouce Group - Name of your resource group. 
+Storage Account Name - Name of storage account. 
+Region -  Your deployment Region. 
 Primary Service -  Azure Blob Storage or Azure Data Lake Storage Gen 2.
 Enable Storage account key access.
 
 Optional
 
-Performance - Standard or Premium.
-Redundancy  -  Align your organisation RPO and RTO requiements. 
-Networking - Align to your organisation network policy , probably a private end point. 
+Performance - Standard or Premium. 
+Redundancy - Align your organisation RPO and RTO requiements.  
+Networking - Align to your organisation network policy , probably a private end point.  
 Access tier -  Hot/Cool/Cold.  Hot is a practical choice if you conistently restoring a production backup to uat once a week!
 
 Tip -  I would keep your storage account in a different azure resource group to your postgres VM's,
