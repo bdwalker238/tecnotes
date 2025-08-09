@@ -85,7 +85,7 @@ sname = Stanza name
 
 psql 	# To test archive
 
-select pg_switch_wal()
+select pg_switch_wal(); select pg_switch_wal(); 
 
 Check your Postgres log file for errors.
 
@@ -93,9 +93,14 @@ Stop Postgres to test a restore
 
 Delete your Cluster
 
-pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
+# pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
+# Start Postgres
+# Check postgres log file for any errors, and 'Execute pg_wal_replay_resume() to promote' If you have
+  recommendation to promote issue -  
 
-Start Postgres.
+hostname $ psql
+  select pg_wal_replay_resume();
+
 
 Any Best Pratices
 ---
