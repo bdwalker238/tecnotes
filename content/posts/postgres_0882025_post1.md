@@ -14,7 +14,7 @@ This article shows you how to setup pgbackrest to use a azure storage account.
 Steps
 -----
 
-## 1) Create Storage Account
+###### 1) Create Storage Account
 
 First you need to setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.
 
