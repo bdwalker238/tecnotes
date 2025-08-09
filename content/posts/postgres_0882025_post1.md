@@ -53,48 +53,28 @@ In your favourite editor -
 
 
 [global]
-{{< line_break >}}
-repo1-type=azure
-{{< line_break >}}
-repo1-azure-account=storage account name
-{{< line_break >}}
-repo1-azure-container=storage account container name
-{{< line_break >}}
-repo1-azure-endpoint=Storage account endpoint address
-{{< line_break >}}
-repo1-azure-key= Storage account key
-{{< line_break >}}
-repo1-azure-key-type=shared
-{{< line_break >}}
-repo1-path=/storage account container name
-{{< line_break >}}
-start-fast=y
-{{< line_break >}}
-repo1-retention-full=retention value
-{{< line_break >}}
-log-level-console=info
-{{< line_break >}}
-log-level-file=detail
-{{< line_break >}}
-link-all=y
-{{< line_break >}}
-archive-async=y
-{{< line_break >}}
-archive-copy=y
-{{< line_break >}}
-archive-check=y
-{{< line_break >}}
-process-max=4
-{{< line_break >}}
-archive-push-queue-max = 2GB
-{{< line_break >}}
-spool-path             = /var/spool/pgbackrest/14
-{{< line_break >}}
-archive-get-queue-max  = 2GB
-{{< line_break >}}
-[sname]
-pg1-path=PGDATA Dir
-pg1-port=PG PORT
+repo1-type=azure  
+repo1-azure-account=storage account name  
+repo1-azure-container=storage account container name  
+repo1-azure-endpoint=Storage account endpoint address  
+repo1-azure-key= Storage account key  
+repo1-azure-key-type=shared  
+repo1-path=/storage account container name  
+start-fast=y  
+repo1-retention-full=retention value  
+log-level-console=info  
+log-level-file=detail  
+link-all=y  
+archive-async=y  
+archive-copy=y  
+archive-check=y  
+process-max=4  
+archive-push-queue-max = 2GB  
+spool-path             = /var/spool/pgbackrest/14  
+archive-get-queue-max  = 2GB  
+[sname]  
+pg1-path=PGDATA Dir  
+pg1-port=PG PORT  
 
 
 
