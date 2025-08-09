@@ -52,7 +52,7 @@ Once the Storage Account created, obtain a storage details ; account name, conta
 In your favourite editor - 
 
 
-[global]
+[global]  
 repo1-type=azure  
 repo1-azure-account=storage account name  
 repo1-azure-container=storage account container name  
