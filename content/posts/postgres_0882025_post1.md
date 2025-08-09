@@ -7,7 +7,9 @@ ShowToc: true
 ---
 
 This article shows you how to setup pgbackrest to use a azure storage account to store backups 
-and archived wal.
+and archived postgres wal logs.
+
+{{< toc >}}
 
 Steps
 -----
@@ -67,7 +69,8 @@ start-fast=y
 repo1-retention-full=retention value  
 log-level-console=info  
 log-level-file=detail  
-link-all=y  
+link-all=y
+start-fast=y
 archive-async=y  
 archive-copy=y  
 archive-check=y  
@@ -92,9 +95,9 @@ Hint -- sname = Stanza name in pgbackrest.conf.
 
 ###### 5) Backup and Archive 
 
-su - postgres
-$ psql 	# To test archive
-select pg_switch_wal(); select pg_switch_wal(); exit;
+su - postgres  
+$ psql 	# To test archive  
+select pg_switch_wal(); select pg_switch_wal(); exit;  
 $ pgbackrest --stanza=sname --type=full backup
 
 Check your Postgres log file for errors.
@@ -104,7 +107,7 @@ Stop Postgres to test a restore
 
 Delete your Cluster  rm -rf  location of cluster 
 
-$ su - postgres
+$ su - postgres  
 $ pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
 
 Start Postgres
