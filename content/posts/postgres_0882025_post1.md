@@ -9,16 +9,16 @@ ShowToc: true
 Using pgbackrest with Azure Storage Account 
 -------------------------------------------
 
-This article shows you how to setup pgbackrest to use azure storage account. 
+This article shows you how to setup pgbackrest to use a azure storage account. 
 
 Steps
 -----
 
 1)
 
-First you need to setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure 
+First you need to setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.
 
-Mandatory Values
+Mandatory settings for the Azure Storage Account.
 
 Resouce Group - Name of your resource group.
 {{< line_break >}}
@@ -30,7 +30,7 @@ Primary Service -  Azure Blob Storage or Azure Data Lake Storage Gen 2.
 {{< line_break >}}
 Enable Storage account key access.
 
-Optional
+Optional settings for the Azure Storage Account.
 
 Performance - Standard or Premium. 
 {{< line_break >}}
@@ -45,20 +45,20 @@ so if you accidently delete the Postgres resource group + VMS your backup data i
 your Storage Account in same Azure Resource group that manages your Recovery Services vault(s),  your backup data is in one place.
  
 
-2) Once the Storage Account created, obtain a storage account key.
+2) Once the Storage Account created, obtain a storage details ; account name, container name, endpoint address.
 
 3) In your pgbackrest.conf file , add  
 
 [global]
 repo1-type=azure
-repo1-azure-account=<Azure Storage Account Name>
-repo1-azure-container=<Azure Container Name>
-repo1-azure-endpoint=<End Point>
-repo1-azure-key=<Key>
+repo1-azure-account=storage account name
+repo1-azure-container=storage account container name
+repo1-azure-endpoint=Storage account endpoint address
+repo1-azure-key= Storage account key
 repo1-azure-key-type=shared
-repo1-path=<Repo Path with Meta Data>
+repo1-path=/pgbackrest
 start-fast=y
-repo1-retention-full=Number of Full Backups
+repo1-retention-full=retention value
 log-level-console=info
 log-level-file=detail
 link-all=y
@@ -67,19 +67,23 @@ archive-copy=y
 archive-check=y
 process-max=4
 archive-push-queue-max = 2GB
-spool-path             = <Spool Path>
+spool-path             = /var/spool/pgbackrest/14
 archive-get-queue-max  = 2GB
-[stanza name]
-pg1-path=PGDATA
-pg1-port=PGPORT
+[sname]
+pg1-path=PGDATA Dir
+pg1-port=PG PORT
+
+
 
 4) Then 
 
-pgbackrest stanza-create --config pgbackrest.conf --stanza=<name> –log-level-console=info
-pgbackrest --stanza=<name> --log-level-console=debug check
-pgbackrest --stanza=<name> --type=full backup
+pgbackrest stanza-create --config pgbackrest.conf --stanza=sname –log-level-console=info
+pgbackrest --stanza=sname --log-level-console=debug check
+pgbackrest --stanza=sname --type=full backup
 
-psql - To test archive
+sname = Stanza name
+
+psql 	# To test archive
 
 select pg_switch_wal()
 
@@ -88,7 +92,9 @@ Check your Postgres log file for errors.
 Stop Postgres to test a restore 
 
 Delete your Cluster
-pgbackrest --stanza=name --type=immediate  --log-level-console=debug restore --link-all
+
+pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
+
 Start Postgres.
 
 Any Best Pratices
