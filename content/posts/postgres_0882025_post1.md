@@ -14,7 +14,7 @@ This article shows you how to setup pgbackrest to use a azure storage account.
 Steps
 -----
 
-1)
+## 1) Create Storage Account
 
 First you need to setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.
 
@@ -56,7 +56,7 @@ repo1-azure-container=storage account container name
 repo1-azure-endpoint=Storage account endpoint address
 repo1-azure-key= Storage account key
 repo1-azure-key-type=shared
-repo1-path=/pgbackrest
+repo1-path=/storage account container name
 start-fast=y
 repo1-retention-full=retention value
 log-level-console=info
