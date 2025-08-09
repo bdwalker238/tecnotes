@@ -1,15 +1,13 @@
 ---
-title: "Pgbackrest with Azure Storage Account"
+title: "Pgbackrest utilising a Azure Storage Account"
 date: 2025-08-09
 draft: false
 weight: 10
 ShowToc: true
 ---
 
-Using pgbackrest with Azure Storage Account 
--------------------------------------------
-
-This article shows you how to setup pgbackrest to use a azure storage account. 
+This article shows you how to setup pgbackrest to use a azure storage account to store backups 
+and archived wal.
 
 Steps
 -----
@@ -45,9 +43,14 @@ so if you accidently delete the Postgres resource group + VMS your backup data i
 your Storage Account in same Azure Resource group that manages your Recovery Services vault(s),  your backup data is in one place.
  
 
-2) Once the Storage Account created, obtain a storage details ; account name, container name, endpoint address.
+###### 2) Obtain credentials
 
-3) In your pgbackrest.conf file , add  
+Once the Storage Account created, obtain a storage details ; account name, container name, endpoint address.
+
+###### 3) Populate pgbackrest.conf
+
+In your favourite editor - 
+
 
 [global]
 repo1-type=azure
@@ -75,27 +78,34 @@ pg1-port=PG PORT
 
 
 
-4) Then 
+###### 4) pgbackrest stanza-create
 
-pgbackrest stanza-create --config pgbackrest.conf --stanza=sname –log-level-console=info
-pgbackrest --stanza=sname --log-level-console=debug check
-pgbackrest --stanza=sname --type=full backup
+$su - postgres
+$pgbackrest stanza-create --config pgbackrest.conf --stanza=sname –log-level-console=info
+$pgbackrest --stanza=sname --log-level-console=debug check
+$pgbackrest --stanza=sname --type=full backup
 
-sname = Stanza name
+Hint -- sname = Stanza name in pgbackrest.conf
 
-psql 	# To test archive
+###### 5) Backup and Archive 
 
-select pg_switch_wal(); select pg_switch_wal(); 
+su - postgres
+$ psql 	# To test archive
+select pg_switch_wal(); select pg_switch_wal(); exit;
+$ pgbackrest --stanza=sname --type=full backup
 
 Check your Postgres log file for errors.
 
+###### 6) Test Backup
 Stop Postgres to test a restore 
 
-Delete your Cluster
+Delete your Cluster  rm -rf  location of cluster 
 
-# pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
-# Start Postgres
-# Check postgres log file for any errors, and 'Execute pg_wal_replay_resume() to promote' If you have
+$ su - postgres
+$ pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
+
+Start Postgres
+Check postgres log file for any errors, and 'Execute pg_wal_replay_resume() to promote' If you have
   recommendation to promote issue -  
 
 hostname $ psql
