@@ -51,6 +51,9 @@ Once the Storage Account created, obtain a storage details ; account name, conta
 
 In your favourite editor - 
 
+$ su - postgres  
+edit your pgbackrest.conf.
+
 
 [global]  
 repo1-type=azure  
@@ -80,12 +83,12 @@ pg1-port=PG PORT
 
 ###### 4) pgbackrest stanza-create
 
-$su - postgres
-$pgbackrest stanza-create --config pgbackrest.conf --stanza=sname –log-level-console=info
-$pgbackrest --stanza=sname --log-level-console=debug check
-$pgbackrest --stanza=sname --type=full backup
+$ su - postgres  
+$pgbackrest stanza-create --config pgbackrest.conf --stanza=sname –log-level-console=info  
+$pgbackrest --stanza=sname --log-level-console=debug check  
+$pgbackrest --stanza=sname --type=full backup  
 
-Hint -- sname = Stanza name in pgbackrest.conf
+Hint -- sname = Stanza name in pgbackrest.conf.
 
 ###### 5) Backup and Archive 
 
