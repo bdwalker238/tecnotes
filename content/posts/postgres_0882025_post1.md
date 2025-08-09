@@ -1,15 +1,16 @@
 ---
 title: "Pgbackrest utilising a Azure Storage Account"
+series: [postgres]
 date: 2025-08-09
 draft: false
 weight: 10
-ShowToc: true
+tags: [postgres]
+categories: [databases, postgres]
+ShowToc: false
 ---
 
 This article shows you how to setup pgbackrest to use a azure storage account to store backups 
 and archived postgres wal logs.
-
-{{ .TableOfContents }}
 
 Steps
 -----

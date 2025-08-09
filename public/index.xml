@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/</link><description>Recent content on Brian Walker's tecnotes</description><generator>Hugo -- 0.148.2</generator><language>en-uk</language><lastBuildDate>Sat, 09 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Pgbackrest utilising a Azure Storage Account</title><link>https://bdwalk.onrender.com/posts/postgres_0882025_post1/</link><pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_0882025_post1/</guid><description>&lt;p>This article shows you how to setup pgbackrest to use a azure storage account to store backups
 and archived postgres wal logs.&lt;/p>
-&lt;p>{{ .TableOfContents }}&lt;/p>
 &lt;h2 id="steps">Steps&lt;/h2>
 &lt;h6 id="1-create-storage-account">1) Create Storage Account&lt;/h6>
 &lt;p>First you need to setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.&lt;/p>
