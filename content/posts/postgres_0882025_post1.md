@@ -9,7 +9,7 @@ ShowToc: true
 This article shows you how to setup pgbackrest to use a azure storage account to store backups 
 and archived postgres wal logs.
 
-{{< toc >}}
+{{ .TableOfContents }}
 
 Steps
 -----
