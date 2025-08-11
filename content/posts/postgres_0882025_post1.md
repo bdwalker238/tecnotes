@@ -45,8 +45,23 @@ Tip -  I would keep your storage account in a different azure resource group to 
 so if you accidently delete the Postgres resource group + VMS your backup data is seperated. Plus if you kept
 your Storage Account in same Azure Resource group that manages your Recovery Services vault(s),  your backup data is in one place.
  
+###### 2) Setup VM Managed Identity 
 
-###### 2) Obtain credentials
+	a) Double-Click on your new Storage Account.
+        b) Access Control ( IAM ).
+	c) Click 'Add'. 
+        d) Click 'Role', Search for 'Storage Blob Data Contributor' in search box, and select it.
+	e) Click Next.
+	f) Select Managed identity , Click 'Select Members'.
+	g) Select Virtual machine for Managed Identity, and hostname(s) of you postgres cluster. **
+        h) Review and Assign - Twice. 
+
+
+** This assumes you had setup a system managed identify for your Postgres VM. If not you need to enable this on your
+VM.
+
+
+###### 3) Obtain credentials
 
 Once the Storage Account created, obtain a storage details ; account name, container name, endpoint address.
 
