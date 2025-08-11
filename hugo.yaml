@@ -14,7 +14,7 @@ menu:
       url: /posts 
       weight: 200 
 params:
-  defaultTheme: dark
+  defaultTheme: auto
   homeInfoParams:
     Title: "Welcome \U0001F44B"
     Content: >-
