@@ -48,13 +48,13 @@ your Storage Account in same Azure Resource group that manages your Recovery Ser
 ###### 2) Setup VM Managed Identity 
 
 	a) Double-Click on your new Storage Account.
-        b) Access Control ( IAM ).
+	b) Select Access Control ( IAM ) on the Left Panel.
 	c) Click 'Add'. 
-        d) Click 'Role', Search for 'Storage Blob Data Contributor' in search box, and select it.
+	d) Click 'Role', Search for 'Storage Blob Data Contributor' in search box, and select it.
 	e) Click Next.
 	f) Select Managed identity , Click 'Select Members'.
 	g) Select Virtual machine for Managed Identity, and hostname(s) of you postgres cluster. **
-        h) Review and Assign - Twice. 
+	h) Review and Assign - Twice. 
 
 
 ** This assumes you had setup a system managed identify for your Postgres VM. If not you need to enable this on your
