@@ -91,9 +91,9 @@ archive-async=y
 archive-copy=y  
 archive-check=y  
 process-max=4  
-archive-push-queue-max = 2GB 				# Custom to your needs 
+archive-push-queue-max = 2GB 				# Custom to your needs  
 spool-path             = /var/spool/pgbackrest/14  
-archive-get-queue-max  = 2GB  				# Custom to your needs
+archive-get-queue-max  = 2GB  				# Custom to your needs  
 [sname]  
 pg1-path=PGDATA Dir  
 pg1-port=PG PORT  
