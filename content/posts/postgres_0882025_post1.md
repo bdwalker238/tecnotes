@@ -1,5 +1,5 @@
 ---
-title: "Pgbackrest utilising a Azure Storage Account"
+title: "Pgbackrest utilising a Azure Storage Account - Part 1"
 series: [postgres]
 date: 2025-08-09
 draft: false
@@ -17,7 +17,7 @@ Steps
 
 ###### 1) Create Storage Account
 
-First you need to setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.
+First, setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.
 
 Mandatory settings for the Azure Storage Account.
 
@@ -31,7 +31,7 @@ Primary Service -  Azure Blob Storage or Azure Data Lake Storage Gen 2.
 {{< line_break >}}
 Enable Storage account key access.
 
-Optional settings for the Azure Storage Account.
+Optional settings for the Azure Storage Account to consider.
 
 Performance - Standard or Premium. 
 {{< line_break >}}
@@ -45,7 +45,7 @@ Tip -  I would keep your storage account in a different azure resource group to 
 so if you accidently delete the Postgres resource group + VMS your backup data is seperated. Plus if you kept
 your Storage Account in same Azure Resource group that manages your Recovery Services vault(s),  your backup data is in one place.
  
-###### 2) Setup VM Managed Identity 
+###### 2) Assoicate VM Managed Identity to the Storage Account.
 
 	a) Double-Click on your new Storage Account.
 	b) Select Access Control ( IAM ) on the Left Panel.
@@ -57,13 +57,13 @@ your Storage Account in same Azure Resource group that manages your Recovery Ser
 	h) Review and Assign - Twice. 
 
 
-** This assumes you had setup a system managed identify for your Postgres VM. If not you need to enable this on your
-VM.
+** This assumes you had already setup a system managed identity for your Postgres VM. If not, you need to enable this on your VM. To setup a  system managed identity refer to https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview
 
 
 ###### 3) Obtain credentials
 
-Once the Storage Account created, obtain a storage details ; account name, container name, endpoint address.
+Once the Storage Account created, obtain a storage details ; account name, container name, endpoint address, and SAS Key.
+
 
 ###### 3) Populate pgbackrest.conf
 
@@ -91,9 +91,9 @@ archive-async=y
 archive-copy=y  
 archive-check=y  
 process-max=4  
-archive-push-queue-max = 2GB  
+archive-push-queue-max = 2GB 				# Custom to your needs 
 spool-path             = /var/spool/pgbackrest/14  
-archive-get-queue-max  = 2GB  
+archive-get-queue-max  = 2GB  				# Custom to your needs
 [sname]  
 pg1-path=PGDATA Dir  
 pg1-port=PG PORT  
@@ -137,10 +137,15 @@ hostname $ psql
 Any Best Pratices
 ---
 
-* Always have a dedicated spool path , and use archive-async so  if there is any delay/error with your Storage account wal files can be temporary archive to the spool directory, and reduce risk of fill up your primary postgres wal directory!
+* Always have a dedicated spool path , and use archive-async so  if there is any delay/error with your Storage account wal files can be temporary archived to the spool directory, and reduce risk of fill up your primary postgres wal directory!
 
 Why Use Azure Storage Accounts
 ---
 
 *  Azure Storage accounts are ideal for backup data when hosting Postgres in Azure, as backup data is backed up directly to 'different infrastructure', and can be geo-replicated to support out of azure region organisational DR site.
 *  Azure Storage accounts only charge you for , Volume of data stored per month + Quantity and types of operations performed, along with any data transfer costs + Data redundancy option selected.  Whereas, using azure managed disk for backups + archives  ( Direct Disk backup ) charge - disk type, backup disk size ( Not volume of backup data), LRS/ZRS,  and typical to meet backup protection requirements would need backup disk snapshoted and backuped up by a azure recovery services vault/Vaeeam. So directly managed disks you effectively pay twice.
+
+Next 
+---
+
+PART 2 will look at Azure Storage account SAS Key rotation.
