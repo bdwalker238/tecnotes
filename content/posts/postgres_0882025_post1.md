@@ -121,8 +121,8 @@ Check your Postgres log file for errors.
 ###### 6) Test Backup
 Stop Postgres to test a restore 
 
-Delete your Cluster. 
-e.g. 'rm -rf /pg/data'  location of cluster 
+Delete all of your Cluster ( PGDATA, PGLOG , any seperate tablespace locations).     
+e.g. 'rm -rf /pg/data'  location of your cluster . 
 
 $ su - postgres  
 $ pgbackrest --stanza=sname --type=immediate  --log-level-console=debug restore --link-all
