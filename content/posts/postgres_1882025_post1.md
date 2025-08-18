@@ -10,7 +10,8 @@ ShowToc: false
 ---
 
 This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file.  It
-also describes 
+also describes items to consider if you want to use Azure Storage Account using SAS keys
+for authentication & Pgbackrest. 
 
 Steps
 -----
@@ -56,8 +57,7 @@ Items to consider
 
 
 * For Azure SAS tokens to be useful with pgbackrest you need to ensure '--expiry "expirydate"' expiry's after
-  next Azure Storage Account SAS Token generatation, and ensure you automate rotating the SAS tokens on regular bases. If you do not
-  do this your backups and/or archiving will Fail. 
+  next Azure Storage Account SAS Token generatation, and ensure you automate rotating the SAS tokens on regular bases. Warning - If you do not do this your backups and/or archiving will Fail. 
 
 * Using Azure Storage Account SAS Tokens can be useful, as ensures the repoX-azure-key in pgbackrest regular changes.
 
