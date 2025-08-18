@@ -60,8 +60,8 @@ Items to consider
   next Azure Storage Account SAS Token generatation, and backup or you automate rotating the SAS tokens on regular bases.
 
 
-Final 
+Final thoughts
 ---
 
-I hope you find  both Part 1( {{< relref "postgres_0882025_post1.md" >}} ) and Part 2 useful. 
+I hope you find  both Part 1( {{< relref "posts/postgres_1882025_post1.md" >}} => '/posts/postgres_1882025_post1/' ) and Part 2 useful. 
 
