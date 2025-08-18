@@ -63,5 +63,5 @@ Items to consider
 Final 
 ---
 
-I hope you find  both Part 1([[* Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 1]] and Part 2 useful. 
+I hope you find  both Part 1( {{< relref "postgres_0882025_post1.md" >}} ) and Part 2 useful. 
 
