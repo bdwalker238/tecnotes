@@ -156,4 +156,4 @@ Why Use Azure Storage Accounts
 Next 
 ---
 
-PART 2 will look at Azure Storage account SAS Key rotation.
+[Part 2]({{< ref "posts/postgres_1882025_post1.md" >}}) will look at Azure Storage account SAS Key rotation.
