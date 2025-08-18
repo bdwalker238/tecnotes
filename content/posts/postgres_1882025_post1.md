@@ -63,5 +63,6 @@ Items to consider
 Final thoughts
 ---
 
-I hope you find  both Part 1( {{< relref "posts/postgres_0882025_post1.md" >}} ) and Part 2 useful. 
+I hope you find  both [Part 1]({{< ref "posts/postgres_0882025_post1.md" >}}) and Part 2 useful. 
+
 
