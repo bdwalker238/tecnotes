@@ -1,5 +1,5 @@
 ---
-title: "Pgbackrest utilising a Azure Storage Account - Part 1"
+title: "Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 1"
 series: [postgres]
 date: 2025-08-09
 draft: false
@@ -9,7 +9,7 @@ categories: [databases, postgres]
 ShowToc: false
 ---
 
-This article shows you how to setup pgbackrest to use a azure storage account to store backups 
+This article shows you how to setup pgbackrest to utilise a azure storage account to store backups 
 and archived postgres wal logs.
 
 Steps
@@ -45,19 +45,25 @@ Tip -  I would keep your storage account in a different azure resource group to 
 so if you accidently delete the Postgres resource group + VMS your backup data is seperated. Plus if you kept
 your Storage Account in same Azure Resource group that manages your Recovery Services vault(s),  your backup data is in one place.
  
-###### 2) Assoicate VM Managed Identity to the Storage Account.
+###### 2) Create a Azure Service Princple.
 
-	a) Double-Click on your new Storage Account.
-	b) Select Access Control ( IAM ) on the Left Panel.
-	c) Click 'Add'. 
-	d) Click 'Role', Search for 'Storage Blob Data Contributor' in search box, and select it.
-	e) Click Next.
-	f) Select Managed identity , Click 'Select Members'.
-	g) Select Virtual machine for Managed Identity, and hostname(s) of you postgres cluster. **
-	h) Review and Assign - Twice. 
+	a) From your cloud shell
 
+		spname - Service Princple name.  
+		rgname - Resource Group.  
+		storaccname = Your Azure Storage Account.  
 
-** This assumes you had already setup a system managed identity for your Postgres VM. If not, you need to enable this on your VM. To setup a  system managed identity refer to https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview
+		az ad sp create-for-rbac --role "Storage Blob Data Contributor" --name <spname> --scopes /subscriptions/<subID>/resourceGroups/<rgname>/providers/Microsoft.Storage/storageAccounts/<storaccname>  
+
+		e.g.  
+
+		az ad sp create-for-rbac --role "Storage Blob Data Contributor" --name spvmpostgres01 --scopes /subscriptions/xxxxxxxx/resourceGroups/rg-mybackup/providers/Microsoft.Storage/storageAccounts/stpostgres  
+
+	b) In the Azure Console, load your Storage Account , on the left side look for 'Access Control ( IAM)' , then  'Role Assignments'. Look for your service princple, check "Storage Blob Data Contributor" is assigned to your storage account.  
+
+	c) Click on 'Add' in 'Access Control ( IAM)'. Add 'Storage Account Key Operator Service Role' to your service princple.  
+
+	d) Wait for 10mins for Azure to reflect any changes.  
 
 
 ###### 3) Obtain credentials
@@ -135,10 +141,11 @@ hostname $ psql
   select pg_wal_replay_resume();
 
 
-Any Best Pratices
+Any Best Practices
 ---
 
 * Always have a dedicated spool path , and use archive-async so  if there is any delay/error with your Storage account wal files can be temporary archived to the spool directory, and reduce risk of fill up your primary postgres wal directory!
+
 
 Why Use Azure Storage Accounts
 ---
