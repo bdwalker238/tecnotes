@@ -34,12 +34,30 @@ sdl ENABLED[A] - c13 EMC emc1 - -
 sdz ENABLED[A] - c3 EMC emc1 - -
 &lt;/code>&lt;/pre>
 &lt;h6 id="3-either-use">3) Either use&lt;/h6>
-&lt;p>ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
+&lt;pre>&lt;code>ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
 * ^
 lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdav/device ../../../13:0:2:3
 lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdaj/device ../../../13:0:3:3
 lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdl/device ../../../3:0:2:3
-lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdz/device ../../../3:0:3:3 **&lt;/p></description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p>This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
+lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdz/device ../../../3:0:3:3 **
+Key * Each host id 13, and 3 ( See systool outout ) Class Device = &amp;quot;host13&amp;quot;, and Class Device = &amp;quot;host3&amp;quot;
+^ LUN ID
+#sg_map -x -sd |grep sdz
+/dev/sg25 3 0 3 3 0 /dev/sdz
+#sg_map -x -sd |grep sdav
+/dev/sg25 13 0 2 3 0 /dev/sdav
+etc for sdl and sdbj
+Notes, on sg_map -x
+after each active sg device name is displayed there are five digits: &amp;lt;host_number&amp;gt; &amp;lt;bus&amp;gt; &amp;lt;scsi_id&amp;gt; &amp;lt;lun&amp;gt; &amp;lt;scsi_type&amp;gt; e.g. 3 0 3 3 0, and 13 0 2 3 0 in example above.
+or
+lsblk -S |grep sdz
+sdz 3:0:3:3 disk EMC SYMETRIX 5977 fc
+* ^
+* Host from systools
+^ LUN ID
+Then get fdisk /dev/sdz Get Disk size
+So you LUN ID is 3, on EMC SYMETRIX 5977 array.
+&lt;/code>&lt;/pre></description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p>This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
 also describes items to consider if you want to use Azure Storage Account using SAS keys
 for authentication &amp;amp; Pgbackrest.&lt;/p>
 &lt;h2 id="steps">Steps&lt;/h2>
