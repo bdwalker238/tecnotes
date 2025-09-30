@@ -16,37 +16,38 @@ Steps
 -----
 ###### 1)  List fibre cards for future reference. 
 
-systool -c fc_host -v |egrep "Class Devic|port_name|port_state|port_id"
-Class Device = "host11"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host11"
-port_id = "0x000000"
-port_name = "0x210000e08b8068ae"
-port_state = "LinkDown"									
-Class Device = "host13"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host13"
-port_id = "0x000000"
-port_name = "0x210000e08b8068ae"
-port_state = "Online"	
-Class Device = "host14"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host10"
-port_id = "0x000000"
-port_name = "0x210000e08b8068ae"
-port_state = "Linkdown"					
-Class Device = "host3"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3"
-port_id = "0x000000"
-port_name = "0x210000e08b8068ae"
-port_state = "Online"
----------------------------
+	From your shell
+
+	# systool -c fc_host -v |egrep "Class Devic|port_name|port_state|port_id"
+	Class Device = "host11"
+	Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host11"
+	port_id = "0x000000"
+	port_name = "0x210000e08b8068ae"
+	port_state = "LinkDown"									
+	Class Device = "host13"
+	Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host13"
+	port_id = "0x000000"
+	port_name = "0x210000e08b8068ae"
+	port_state = "Online"	
+	Class Device = "host14"
+	Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host10"
+	port_id = "0x000000"
+	port_name = "0x210000e08b8068ae"
+	port_state = "Linkdown"					
+	Class Device = "host3"
+	Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3"
+	port_id = "0x000000"
+	port_name = "0x210000e08b8068ae"
+	port_state = "Online"
 
 ###### 2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.
 
-vxdmpadm getsubpaths dmpnodename=emc1_16f9		( dmpnodename DEVICE)
-NAME	STATE[A]	PATH-TYPE[M]	CTL_NAME	ENCLR_TYPE	ENCLR_NAME	ATTRS	Priority
-sdav	ENABLED[A]	-		c3		EMC		emc1		-	-
-sdbj	ENABLED[A]	-		c13		EMC		emc1		-	-
-sdl	ENABLED[A]	-		c13		EMC		emc1		-	-
-sdz	ENABLED[A]	-		c3		EMC		emc1		-	-
+	vxdmpadm getsubpaths dmpnodename=emc1_16f9		( dmpnodename DEVICE)
+	NAME	STATE[A]	PATH-TYPE[M]	CTL_NAME	ENCLR_TYPE	ENCLR_NAME	ATTRS	Priority
+	sdav	ENABLED[A]	-		c3		EMC		emc1		-	-
+	sdbj	ENABLED[A]	-		c13		EMC		emc1		-	-
+	sdl	ENABLED[A]	-		c13		EMC		emc1		-	-
+	sdz	ENABLED[A]	-		c3		EMC		emc1		-	-
 
 ###### 3) Either use 
 

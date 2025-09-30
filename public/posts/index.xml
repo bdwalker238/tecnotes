@@ -2,34 +2,44 @@
 discover the lun id of a storage array.&lt;/p>
 &lt;h2 id="steps">Steps&lt;/h2>
 &lt;h6 id="1--list-fibre-cards-for-future-reference">1) List fibre cards for future reference.&lt;/h6>
-&lt;h2 id="port_state--online">systool -c fc_host -v |egrep &amp;ldquo;Class Devic|port_name|port_state|port_id&amp;rdquo;
-Class Device = &amp;ldquo;host11&amp;rdquo;
-Device path = &amp;ldquo;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host11&amp;rdquo;
-port_id = &amp;ldquo;0x000000&amp;rdquo;
-port_name = &amp;ldquo;0x210000e08b8068ae&amp;rdquo;
-port_state = &amp;ldquo;LinkDown&amp;rdquo;
-Class Device = &amp;ldquo;host13&amp;rdquo;
-Device path = &amp;ldquo;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host13&amp;rdquo;
-port_id = &amp;ldquo;0x000000&amp;rdquo;
-port_name = &amp;ldquo;0x210000e08b8068ae&amp;rdquo;
-port_state = &amp;ldquo;Online&amp;rdquo;
-Class Device = &amp;ldquo;host14&amp;rdquo;
-Device path = &amp;ldquo;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host10&amp;rdquo;
-port_id = &amp;ldquo;0x000000&amp;rdquo;
-port_name = &amp;ldquo;0x210000e08b8068ae&amp;rdquo;
-port_state = &amp;ldquo;Linkdown&amp;rdquo;
-Class Device = &amp;ldquo;host3&amp;rdquo;
-Device path = &amp;ldquo;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3&amp;rdquo;
-port_id = &amp;ldquo;0x000000&amp;rdquo;
-port_name = &amp;ldquo;0x210000e08b8068ae&amp;rdquo;
-port_state = &amp;ldquo;Online&amp;rdquo;&lt;/h2>
+&lt;pre>&lt;code>From your shell
+# systool -c fc_host -v |egrep &amp;quot;Class Devic|port_name|port_state|port_id&amp;quot;
+Class Device = &amp;quot;host11&amp;quot;
+Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host11&amp;quot;
+port_id = &amp;quot;0x000000&amp;quot;
+port_name = &amp;quot;0x210000e08b8068ae&amp;quot;
+port_state = &amp;quot;LinkDown&amp;quot;
+Class Device = &amp;quot;host13&amp;quot;
+Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host13&amp;quot;
+port_id = &amp;quot;0x000000&amp;quot;
+port_name = &amp;quot;0x210000e08b8068ae&amp;quot;
+port_state = &amp;quot;Online&amp;quot;
+Class Device = &amp;quot;host14&amp;quot;
+Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host10&amp;quot;
+port_id = &amp;quot;0x000000&amp;quot;
+port_name = &amp;quot;0x210000e08b8068ae&amp;quot;
+port_state = &amp;quot;Linkdown&amp;quot;
+Class Device = &amp;quot;host3&amp;quot;
+Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3&amp;quot;
+port_id = &amp;quot;0x000000&amp;quot;
+port_name = &amp;quot;0x210000e08b8068ae&amp;quot;
+port_state = &amp;quot;Online&amp;quot;
+&lt;/code>&lt;/pre>
 &lt;h6 id="2-use-vxdmpadm-getsubpaths-to-identify-the-os-devices-that-represents-the-paths-to-your-lun">2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.&lt;/h6>
-&lt;p>vxdmpadm getsubpaths dmpnodename=emc1_16f9 ( dmpnodename DEVICE)
+&lt;pre>&lt;code>vxdmpadm getsubpaths dmpnodename=emc1_16f9 ( dmpnodename DEVICE)
 NAME STATE[A] PATH-TYPE[M] CTL_NAME ENCLR_TYPE ENCLR_NAME ATTRS Priority
 sdav ENABLED[A] - c3 EMC emc1 - -
 sdbj ENABLED[A] - c13 EMC emc1 - -
 sdl ENABLED[A] - c13 EMC emc1 - -
-sdz ENABLED[A] - c3 EMC emc1 - -&lt;/p></description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p>This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
+sdz ENABLED[A] - c3 EMC emc1 - -
+&lt;/code>&lt;/pre>
+&lt;h6 id="3-either-use">3) Either use&lt;/h6>
+&lt;p>ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
+* ^
+lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdav/device ../../../13:0:2:3
+lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdaj/device ../../../13:0:3:3
+lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdl/device ../../../3:0:2:3
+lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdz/device ../../../3:0:3:3 **&lt;/p></description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p>This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
 also describes items to consider if you want to use Azure Storage Account using SAS keys
 for authentication &amp;amp; Pgbackrest.&lt;/p>
 &lt;h2 id="steps">Steps&lt;/h2>
