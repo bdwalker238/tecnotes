@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/posts/</link><description>Recent content in Posts on Brian Walker's tecnotes</description><generator>Hugo -- 0.150.1</generator><language>en-uk</language><lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Identify LUN of DMP ( Dynamic Multipath metanode name</title><link>https://bdwalk.onrender.com/posts/veritas_300925_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/veritas_300925_post1/</guid><description>&lt;p&gt;This article shows you how to interrogate Arctera[Verita] Storage Foundation DMP ( Dynamic Multipath ) metanode name , to
 discover the lun id of a storage array.&lt;/p&gt;
 &lt;h2 id="steps"&gt;Steps&lt;/h2&gt;
-&lt;h6 id="1--list-fibre-cards-for-future-reference"&gt;1) List fibre cards for future reference.&lt;/h6&gt;
-&lt;pre&gt;&lt;code&gt;From your shell
+&lt;h6 id="1--list-fibre-cards-and-encloser-details-for-future-reference"&gt;1) List fibre cards and encloser details for future reference.&lt;/h6&gt;
+&lt;pre&gt;&lt;code&gt;From your Linux shell
 # systool -c fc_host -v |egrep &amp;quot;Class Devic|port_name|port_state|port_id&amp;quot;
 Class Device = &amp;quot;host11&amp;quot;
 Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host11&amp;quot;
@@ -24,9 +24,13 @@ Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3&
 port_id = &amp;quot;0x000000&amp;quot;
 port_name = &amp;quot;0x210000e08b8068ae&amp;quot;
 port_state = &amp;quot;Online&amp;quot;
+# xmdmpadm listenclosure all
+ENCLR_NAME ENCLR_TYPE ENCLR_SN Status ARRARY_TYPE LUN COUNT FIRMWARE
+emc1 EMC 000297800422 CONNECTED VMAX-A/A 14 5978
+disk Disk DISKS CONNECTED Disk 1 5.26
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h6 id="2-use-vxdmpadm-getsubpaths-to-identify-the-os-devices-that-represents-the-paths-to-your-lun"&gt;2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.&lt;/h6&gt;
-&lt;pre&gt;&lt;code&gt;vxdmpadm getsubpaths dmpnodename=emc1_16f9 ( dmpnodename DEVICE)
+&lt;pre&gt;&lt;code&gt;#vxdmpadm getsubpaths dmpnodename=emc1_16f9 ( dmpnodename DEVICE)
 NAME STATE[A] PATH-TYPE[M] CTL_NAME ENCLR_TYPE ENCLR_NAME ATTRS Priority
 sdav ENABLED[A] - c3 EMC emc1 - -
 sdbj ENABLED[A] - c13 EMC emc1 - -
@@ -34,7 +38,7 @@ sdl ENABLED[A] - c13 EMC emc1 - -
 sdz ENABLED[A] - c3 EMC emc1 - -
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h6 id="3-either-use"&gt;3) Either use&lt;/h6&gt;
-&lt;pre&gt;&lt;code&gt;ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
+&lt;pre&gt;&lt;code&gt;#ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
 * ^
 lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdav/device ../../../13:0:2:3
 lrwxrwxrwx. 1 root root 0 Aug 21 14:47 /sys/block/sdaj/device ../../../13:0:3:3
@@ -50,13 +54,13 @@ etc for sdl and sdbj
 Notes, on sg_map -x
 after each active sg device name is displayed there are five digits: &amp;lt;host_number&amp;gt; &amp;lt;bus&amp;gt; &amp;lt;scsi_id&amp;gt; &amp;lt;lun&amp;gt; &amp;lt;scsi_type&amp;gt; e.g. 3 0 3 3 0, and 13 0 2 3 0 in example above.
 or
-lsblk -S |grep sdz
-sdz 3:0:3:3 disk EMC SYMETRIX 5977 fc
+#lsblk -S |grep sdz
+sdz 3:0:3:3 disk EMC SYMETRIX 5978 fc
 * ^
 * Host from systools
 ^ LUN ID
-Then get fdisk /dev/sdz Get Disk size
-So you LUN ID is 3, on EMC SYMETRIX 5977 array.
+Then get fdisk /dev/sdz Get Disk size. This will also help to find the Lun within the Storage Array !
+So you LUN ID is 3, on EMC SYMETRIX array with firmware 5978.
 &lt;/code&gt;&lt;/pre&gt;</description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p&gt;This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
 also describes items to consider if you want to use Azure Storage Account using SAS keys
 for authentication &amp;amp; Pgbackrest.&lt;/p&gt;
