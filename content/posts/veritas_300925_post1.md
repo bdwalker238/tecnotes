@@ -18,28 +18,25 @@ Steps
 
 systool -c fc_host -v |egrep "Class Devic|port_name|port_state|port_id"
 Class Device = "host11"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host10"
+Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host11"
 port_id = "0x000000"
 port_name = "0x210000e08b8068ae"
 port_state = "LinkDown"									
-
 Class Device = "host13"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host12"
+Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host13"
 port_id = "0x000000"
 port_name = "0x210000e08b8068ae"
-port_state = "Online"					
-
+port_state = "Online"	
 Class Device = "host14"
 Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host10"
 port_id = "0x000000"
 port_name = "0x210000e08b8068ae"
 port_state = "Linkdown"					
-
 Class Device = "host3"
-Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host13"
+Device path = "/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3"
 port_id = "0x000000"
 port_name = "0x210000e08b8068ae"
-port_state = "Online"					#  
+port_state = "Online"
 ---------------------------
 
 ###### 2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.
