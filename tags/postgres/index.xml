@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Postgres on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/tags/postgres/</link><description>Recent content in Postgres on Brian Walker's tecnotes</description><generator>Hugo -- 0.148.2</generator><language>en-uk</language><lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/tags/postgres/index.xml" rel="self" type="application/rss+xml"/><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p>This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Postgres on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/tags/postgres/</link><description>Recent content in Postgres on Brian Walker's tecnotes</description><generator>Hugo -- 0.150.1</generator><language>en-uk</language><lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/tags/postgres/index.xml" rel="self" type="application/rss+xml"/><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 2</title><link>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_1882025_post1/</guid><description>&lt;p&gt;This article shows you how to Generate the Storage SAS token, and update the PgBackrest Config file. It
 also describes items to consider if you want to use Azure Storage Account using SAS keys
-for authentication &amp;amp; Pgbackrest.&lt;/p>
-&lt;h2 id="steps">Steps&lt;/h2>
-&lt;h6 id="1-retrieve-the-storage-account-key">1) Retrieve the Storage Account key.&lt;/h6>
-&lt;pre>&lt;code>account_key=$(az storage account keys list \
+for authentication &amp;amp; Pgbackrest.&lt;/p&gt;
+&lt;h2 id="steps"&gt;Steps&lt;/h2&gt;
+&lt;h6 id="1-retrieve-the-storage-account-key"&gt;1) Retrieve the Storage Account key.&lt;/h6&gt;
+&lt;pre&gt;&lt;code&gt;account_key=$(az storage account keys list \
 --resource-group &amp;quot;azureresourcegroup&amp;quot; \
 --account-name &amp;quot;storage_account_name&amp;quot; \
 --query &amp;quot;[0].value&amp;quot; \
 --output tsv)
-&lt;/code>&lt;/pre>
-&lt;h6 id="2-generate-the-storage-sas-token">2) Generate the Storage SAS token.&lt;/h6>
-&lt;pre>&lt;code>sas_token=$(az storage container generate-sas \
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h6 id="2-generate-the-storage-sas-token"&gt;2) Generate the Storage SAS token.&lt;/h6&gt;
+&lt;pre&gt;&lt;code&gt;sas_token=$(az storage container generate-sas \
 --account-name &amp;quot;storage_account_name&amp;quot; \
 --name &amp;quot;container_name&amp;quot; \
 --permissions acdlrw \
@@ -18,25 +18,25 @@ for authentication &amp;amp; Pgbackrest.&lt;/p>
 --https-only \
 --account-key &amp;quot;account_key&amp;quot; \
 --output tsv)
-&lt;/code>&lt;/pre>
-&lt;h6 id="3-replace-the-old-token-with-the-new-token">3) Replace the old token with the new token&lt;/h6>
-&lt;pre>&lt;code>awk -v sas_token=&amp;quot;$sas_token&amp;quot; '/^repo1-azure-key=/ {$0=&amp;quot;repo1-azure-key=&amp;quot; sas_token} {print}' &amp;quot;$pg_backrest_conf&amp;quot; &amp;gt; /tmp/pgbackrest.conf.tmp &amp;amp;&amp;amp; mv /tmp/pgbackrest.conf.tmp &amp;quot;$pg_backrest_conf&amp;quot;
-&lt;/code>&lt;/pre>
-&lt;h6 id="4-run-pgbackrest-backup">4) Run pgbackrest backup.&lt;/h6>
-&lt;p>su - postgres&lt;br>
-select pg_switch_wal(); select pg_switch_wal(); exit;&lt;br>
-$ pgbackrest &amp;ndash;stanza=sname &amp;ndash;type=full backup&lt;/p></description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 1</title><link>https://bdwalk.onrender.com/posts/postgres_0882025_post1/</link><pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_0882025_post1/</guid><description>&lt;p>This article shows you how to setup pgbackrest to utilise a azure storage account to store backups
-and archived postgres wal logs.&lt;/p>
-&lt;h2 id="steps">Steps&lt;/h2>
-&lt;h6 id="1-create-storage-account">1) Create Storage Account&lt;/h6>
-&lt;p>First, setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.&lt;/p>
-&lt;p>Mandatory settings for the Azure Storage Account.&lt;/p>
-&lt;p>Resouce Group - Name of your resource group.
-&lt;br />
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h6 id="3-replace-the-old-token-with-the-new-token"&gt;3) Replace the old token with the new token&lt;/h6&gt;
+&lt;pre&gt;&lt;code&gt;awk -v sas_token=&amp;quot;$sas_token&amp;quot; '/^repo1-azure-key=/ {$0=&amp;quot;repo1-azure-key=&amp;quot; sas_token} {print}' &amp;quot;$pg_backrest_conf&amp;quot; &amp;gt; /tmp/pgbackrest.conf.tmp &amp;amp;&amp;amp; mv /tmp/pgbackrest.conf.tmp &amp;quot;$pg_backrest_conf&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h6 id="4-run-pgbackrest-backup"&gt;4) Run pgbackrest backup.&lt;/h6&gt;
+&lt;p&gt;su - postgres&lt;br&gt;
+select pg_switch_wal(); select pg_switch_wal(); exit;&lt;br&gt;
+$ pgbackrest &amp;ndash;stanza=sname &amp;ndash;type=full backup&lt;/p&gt;</description></item><item><title>Pgbackrest utilising a Azure Storage Account - Using a SAS Key - Part 1</title><link>https://bdwalk.onrender.com/posts/postgres_0882025_post1/</link><pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/postgres_0882025_post1/</guid><description>&lt;p&gt;This article shows you how to setup pgbackrest to utilise a azure storage account to store backups
+and archived postgres wal logs.&lt;/p&gt;
+&lt;h2 id="steps"&gt;Steps&lt;/h2&gt;
+&lt;h6 id="1-create-storage-account"&gt;1) Create Storage Account&lt;/h6&gt;
+&lt;p&gt;First, setup a Azure Storage Account, either using Terraform, ARM Template Azure Cli, or via Azure Portal.&lt;/p&gt;
+&lt;p&gt;Mandatory settings for the Azure Storage Account.&lt;/p&gt;
+&lt;p&gt;Resouce Group - Name of your resource group.
+&lt;br /&gt;
 Storage Account Name - Name of storage account.
-&lt;br />
+&lt;br /&gt;
 Region - Your deployment Region.
-&lt;br />
+&lt;br /&gt;
 Primary Service - Azure Blob Storage or Azure Data Lake Storage Gen 2.
-&lt;br />
-Enable Storage account key access.&lt;/p></description></item></channel></rss>
+&lt;br /&gt;
+Enable Storage account key access.&lt;/p&gt;</description></item></channel></rss>
