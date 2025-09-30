@@ -14,9 +14,9 @@ discover the lun id of  a storage array.
 
 Steps
 -----
-###### 1)  List fibre cards for future reference. 
+###### 1)  List fibre cards and encloser details for future reference. 
 
-	From your shell
+	From your Linux shell
 
 	# systool -c fc_host -v |egrep "Class Devic|port_name|port_state|port_id"
 	Class Device = "host11"
@@ -40,9 +40,14 @@ Steps
 	port_name = "0x210000e08b8068ae"
 	port_state = "Online"
 
+        # xmdmpadm listenclosure all
+	ENCLR_NAME	ENCLR_TYPE	ENCLR_SN	Status 		ARRARY_TYPE	LUN COUNT	FIRMWARE
+	emc1		EMC		000297800422	CONNECTED	VMAX-A/A	14		5978
+	disk		Disk 		DISKS		CONNECTED	Disk		1		5.26
+
 ###### 2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.
 
-	vxdmpadm getsubpaths dmpnodename=emc1_16f9		( dmpnodename DEVICE)
+	#vxdmpadm getsubpaths dmpnodename=emc1_16f9		( dmpnodename DEVICE)
 	NAME	STATE[A]	PATH-TYPE[M]	CTL_NAME	ENCLR_TYPE	ENCLR_NAME	ATTRS	Priority
 	sdav	ENABLED[A]	-		c3		EMC		emc1		-	-
 	sdbj	ENABLED[A]	-		c13		EMC		emc1		-	-
@@ -51,7 +56,7 @@ Steps
 
 ###### 3) Either use 
 
-	ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
+	#ls -ld /sys/block/sd*/device |grep -e sdz -e sdl -e sdbj -e sdav
 												 *      ^
 	lrwxrwxrwx.	1	root	root	0	Aug 21	14:47	/sys/block/sdav/device	../../../13:0:2:3 
 	lrwxrwxrwx.	1	root	root	0	Aug 21  14:47	/sys/block/sdaj/device  ../../../13:0:3:3
@@ -71,14 +76,14 @@ Steps
 	after each active sg device name is displayed there are five digits: <host_number> <bus> <scsi_id> <lun> <scsi_type> e.g. 3 0 3 3 0, and 13 0 2 3 0  in example above.
 
 	or 
-	lsblk -S |grep sdz
-	sdz	3:0:3:3	disk EMC 	SYMETRIX 5977 fc	
+	#lsblk -S |grep sdz
+	sdz	3:0:3:3	disk EMC 	SYMETRIX 5978 fc	
         	*     ^
 
 	* Host from systools
 	^ LUN ID
 
-	Then get fdisk /dev/sdz	Get Disk size
+	Then get fdisk /dev/sdz	Get Disk size. This will also help to find the Lun within the Storage Array ! 
 
-        So you LUN ID is 3, on EMC SYMETRIX 5977 array.
+        So you LUN ID is 3, on EMC SYMETRIX array with firmware 5978.
 
