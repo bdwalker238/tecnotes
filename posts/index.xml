@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/posts/</link><description>Recent content in Posts on Brian Walker's tecnotes</description><generator>Hugo -- 0.150.1</generator><language>en-uk</language><lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Identify LUN of DMP ( Dynamic Multipath metanode name</title><link>https://bdwalk.onrender.com/posts/veritas_300925_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/veritas_300925_post1/</guid><description>&lt;p&gt;This article shows you how to interrogate Arctera[Verita] Storage Foundation DMP ( Dynamic Multipath ) metanode name , to
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/posts/</link><description>Recent content in Posts on Brian Walker's tecnotes</description><generator>Hugo -- 0.150.1</generator><language>en-uk</language><lastBuildDate>Mon, 18 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Arctera[Verita] Storage Foundation : Identify LUN of DMP ( Dynamic Multipath) device.</title><link>https://bdwalk.onrender.com/posts/veritas_300925_post1/</link><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/veritas_300925_post1/</guid><description>&lt;p&gt;This article shows you how to interrogate Arctera[Verita] Storage Foundation DMP ( Dynamic Multipath ) device to
 discover the lun id of a storage array.&lt;/p&gt;
 &lt;h2 id="steps"&gt;Steps&lt;/h2&gt;
 &lt;h6 id="1--list-fibre-cards-and-encloser-details-for-future-reference"&gt;1) List fibre cards and encloser details for future reference.&lt;/h6&gt;
@@ -24,13 +24,13 @@ Device path = &amp;quot;/sys/devices/pci0000:00/0000:00:04.0/0000:08:00.0/host3&
 port_id = &amp;quot;0x000000&amp;quot;
 port_name = &amp;quot;0x210000e08b8068ae&amp;quot;
 port_state = &amp;quot;Online&amp;quot;
-# xmdmpadm listenclosure all
+#xmdmpadm listenclosure all
 ENCLR_NAME ENCLR_TYPE ENCLR_SN Status ARRARY_TYPE LUN COUNT FIRMWARE
 emc1 EMC 000297800422 CONNECTED VMAX-A/A 14 5978
 disk Disk DISKS CONNECTED Disk 1 5.26
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h6 id="2-use-vxdmpadm-getsubpaths-to-identify-the-os-devices-that-represents-the-paths-to-your-lun"&gt;2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.&lt;/h6&gt;
-&lt;pre&gt;&lt;code&gt;#vxdmpadm getsubpaths dmpnodename=emc1_16f9 ( dmpnodename DEVICE)
+&lt;pre&gt;&lt;code&gt;# vxdmpadm getsubpaths dmpnodename=emc1_16f9 # ( dmpnodename DEVICE)
 NAME STATE[A] PATH-TYPE[M] CTL_NAME ENCLR_TYPE ENCLR_NAME ATTRS Priority
 sdav ENABLED[A] - c3 EMC emc1 - -
 sdbj ENABLED[A] - c13 EMC emc1 - -
