@@ -9,8 +9,7 @@ categories: [linux, veritas]
 ShowToc: false
 ---
 
-This article shows you how to interrogate Arctera[Verita]  Storage Foundation  DMP ( Dynamic Multipath )  device to
-discover the lun id of a storage array.
+This article shows you how to identify LUN ID that maps to a Arctera[Verita]Storage Foundation  DMP ( Dynamic Multipath).
 
 Steps
 -----
