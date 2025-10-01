@@ -1,7 +1,7 @@
 ---
 title: "Arctera[Veritas]  Storage Foundation : Identify LUN of DMP ( Dynamic Multipath) device."
 series: [veritas]
-date: 2025-08-18
+date: 2025-10-01
 draft: false
 weight: 10
 tags: [veritas]
