@@ -1,5 +1,5 @@
 ---
-title: "Arctera[Verita]  Storage Foundation : Identify LUN of DMP ( Dynamic Multipath) device."
+title: "Arctera[Veritas]  Storage Foundation : Identify LUN of DMP ( Dynamic Multipath) device."
 series: [veritas]
 date: 2025-08-18
 draft: false
@@ -9,7 +9,7 @@ categories: [linux, veritas]
 ShowToc: false
 ---
 
-This article shows you how to identify LUN ID that maps to a Arctera[Verita]Storage Foundation  DMP ( Dynamic Multipath).
+This article shows you how to identify LUN ID that maps to a Arctera[Veritas] Storage Foundation  DMP ( Dynamic Multipath).
 
 Steps
 -----
