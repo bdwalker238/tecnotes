@@ -1,5 +1,5 @@
 ---
-title: "Identify LUN of  DMP ( Dynamic Multipath metanode name"
+title: "Arctera[Verita]  Storage Foundation : Identify LUN of DMP ( Dynamic Multipath) device."
 series: [veritas]
 date: 2025-08-18
 draft: false
@@ -9,8 +9,8 @@ categories: [linux, veritas]
 ShowToc: false
 ---
 
-This article shows you how to interrogate Arctera[Verita]  Storage Foundation  DMP ( Dynamic Multipath ) metanode name , to
-discover the lun id of  a storage array.
+This article shows you how to interrogate Arctera[Verita]  Storage Foundation  DMP ( Dynamic Multipath )  device to
+discover the lun id of a storage array.
 
 Steps
 -----
@@ -40,14 +40,14 @@ Steps
 	port_name = "0x210000e08b8068ae"
 	port_state = "Online"
 
-        # xmdmpadm listenclosure all
+ 	#xmdmpadm listenclosure all
 	ENCLR_NAME	ENCLR_TYPE	ENCLR_SN	Status 		ARRARY_TYPE	LUN COUNT	FIRMWARE
 	emc1		EMC		000297800422	CONNECTED	VMAX-A/A	14		5978
 	disk		Disk 		DISKS		CONNECTED	Disk		1		5.26
 
 ###### 2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.
 
-	#vxdmpadm getsubpaths dmpnodename=emc1_16f9		( dmpnodename DEVICE)
+	# vxdmpadm getsubpaths dmpnodename=emc1_16f9	#	( dmpnodename DEVICE)
 	NAME	STATE[A]	PATH-TYPE[M]	CTL_NAME	ENCLR_TYPE	ENCLR_NAME	ATTRS	Priority
 	sdav	ENABLED[A]	-		c3		EMC		emc1		-	-
 	sdbj	ENABLED[A]	-		c13		EMC		emc1		-	-
