@@ -4,8 +4,8 @@ series: [veritas]
 date: 2025-10-01
 draft: false
 weight: 10
-tags: [veritas]
-categories: [linux, veritas]
+tags: [Veritas]
+categories: [Linux, Veritas]
 ShowToc: false
 ---
 
