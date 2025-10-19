@@ -31,10 +31,10 @@ disk Disk DISKS CONNECTED Disk 1 5.26
 &lt;h6 id="2-identify-dmpnodename">2) Identify dmpnodename&lt;/h6>
 &lt;pre>&lt;code># df -h |grep cluster
 # /dev/vx/dsk/RS_cluster_T2/lv_cluster 32GB 1.4G 31 5% /cluster
-#vxdg list RS_cluster_T2
+# vxdg list RS_cluster_T2
 Group: RS_cluster_T2
 dgid : 1716266100.420.hkl2135435
-import-id : 1024.410
+import-id : 1024.41
 version: 290
 aligment : 8192 (bytes)
 local_activation: read-write
