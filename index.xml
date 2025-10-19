@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/</link><description>Recent content on Brian Walker's tecnotes</description><generator>Hugo -- 0.151.0</generator><language>en-uk</language><lastBuildDate>Sun, 12 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Identifing IO performance problem with iostat.</title><link>https://bdwalk.onrender.com/posts/iostat_121025/</link><pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/iostat_121025/</guid><description>&lt;p&gt;Quick article, what to look for when assessing iostat output due to slow performance on a database ( DB2, MySQL, Postgres, Oracle ) server. If you observed CPU run queue been blocked/high software interrupts. Here is a sample output iostat where I diagnose wait IO root cause of a database hang , which was wait IO -&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Brian Walker's tecnotes</title><link>https://bdwalk.onrender.com/</link><description>Recent content on Brian Walker's tecnotes</description><generator>Hugo -- 0.151.2</generator><language>en-uk</language><lastBuildDate>Sun, 12 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://bdwalk.onrender.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Identifing IO performance problem with iostat.</title><link>https://bdwalk.onrender.com/posts/iostat_121025/</link><pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate><guid>https://bdwalk.onrender.com/posts/iostat_121025/</guid><description>&lt;p&gt;Quick article, what to look for when assessing iostat output due to slow performance on a database ( DB2, MySQL, Postgres, Oracle ) server. If you observed CPU run queue been blocked/high software interrupts. Here is a sample output iostat where I diagnose wait IO root cause of a database hang , which was wait IO -&lt;/p&gt;
 &lt;h2 id="if-you-observe"&gt;If you observe&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;$ iostat -kxy 10 1
 Linux 4.18.0-553.61.1.el8_10.x86_64 (hostname) 10/06/2025 _x86_64_ (32 CPU)
@@ -46,7 +46,24 @@ ENCLR_NAME ENCLR_TYPE ENCLR_SN Status ARRARY_TYPE LUN COUNT FIRMWARE
 emc1 EMC 000297800422 CONNECTED VMAX-A/A 14 5978
 disk Disk DISKS CONNECTED Disk 1 5.26
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h6 id="2-use-vxdmpadm-getsubpaths-to-identify-the-os-devices-that-represents-the-paths-to-your-lun"&gt;2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.&lt;/h6&gt;
+&lt;h6 id="2-identify-dmpnodename"&gt;2) Identify dmpnodename&lt;/h6&gt;
+&lt;pre&gt;&lt;code&gt;# df -h |grep cluster
+# /dev/vx/dsk/RS_cluster_T2/lv_cluster 32GB 1.4G 31 5% /cluster
+#vxdg list RS_cluster_T2
+Group: RS_cluster_T2
+dgid : 1716266100.420.hkl2135435
+import-id : 1024.410
+version: 290
+aligment : 8192 (bytes)
+local_activation: read-write
+ssb: on
+autotagging : on
+copies: nconfig=default nlog=default
+config: seqno=0.1158 permlen=51360 free=51360 templen=4 loglen=4096
+config disk emc1_16f9 copy 1 len=51360 state=clean online
+log disk emc1_16f9 copy 1 len=4096
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h6 id="3-use-vxdmpadm-getsubpaths-to-identify-the-os-devices-that-represents-the-paths-to-your-lun"&gt;3) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.&lt;/h6&gt;
 &lt;pre&gt;&lt;code&gt;# vxdmpadm getsubpaths dmpnodename=emc1_16f9 # ( dmpnodename DEVICE)
 NAME STATE[A] PATH-TYPE[M] CTL_NAME ENCLR_TYPE ENCLR_NAME ATTRS Priority
 sdav ENABLED[A] - c3 EMC emc1 - -
