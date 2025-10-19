@@ -44,7 +44,27 @@ Steps
 	emc1		EMC		000297800422	CONNECTED	VMAX-A/A	14		5978
 	disk		Disk 		DISKS		CONNECTED	Disk		1		5.26
 
-###### 2) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.
+###### 2) Identify dmpnodename
+
+	# df -h |grep cluster
+
+	# /dev/vx/dsk/RS_cluster_T2/lv_cluster    32GB 1.4G 31 5% /cluster
+
+        #vxdg list RS_cluster_T2
+	 Group: RS_cluster_T2
+         dgid : 1716266100.420.hkl2135435
+         import-id : 1024.410
+         version: 290
+	 aligment : 8192 (bytes)
+	 local_activation: read-write
+	 ssb: on
+	 autotagging : on
+	 copies: nconfig=default nlog=default
+	 config: seqno=0.1158 permlen=51360 free=51360 templen=4 loglen=4096
+	 config disk emc1_16f9 copy 1 len=51360 state=clean online
+	 log disk emc1_16f9  copy 1 len=4096
+
+###### 3) Use vxdmpadm getsubpaths to identify the OS devices that represents the paths to your LUN.
 
 	# vxdmpadm getsubpaths dmpnodename=emc1_16f9	#	( dmpnodename DEVICE)
 	NAME	STATE[A]	PATH-TYPE[M]	CTL_NAME	ENCLR_TYPE	ENCLR_NAME	ATTRS	Priority
